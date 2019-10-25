@@ -1,0 +1,592 @@
+function varargout = ONOFF_OPDesicions(varargin)
+% ONOFF_OPDESICIONS M-file for ONOFF_OPDesicions.fig
+%      ONOFF_OPDESICIONS, by itself, creates a new ONOFF_OPDESICIONS or raises the existing
+%      singleton*.
+%
+%      H = ONOFF_OPDESICIONS returns the handle to a new ONOFF_OPDESICIONS or the handle to
+%      the existing singleton*.
+%
+%      ONOFF_OPDESICIONS('CALLBACK',hObject,eventData,handles,...) calls the local
+%      function named CALLBACK in ONOFF_OPDESICIONS.M with the given input arguments.
+%
+%      ONOFF_OPDESICIONS('Property','Value',...) creates a new ONOFF_OPDESICIONS or raises the
+%      existing singleton*.  Starting from the left, property value pairs are
+%      applied to the GUI before ONOFF_OPDesicions_OpeningFcn gets called.  An
+%      unrecognized property name or invalid value makes property application
+%      stop.  All inputs are passed to ONOFF_OPDesicions_OpeningFcn via varargin.
+%
+%      *See GUI Options on GUIDE's Tools menu.  Choose "GUI allows only one
+%      instance to run (singleton)".
+%
+% See also: GUIDE, GUIDATA, GUIHANDLES
+
+% Edit the above text to modify the response to help ONOFF_OPDesicions
+
+% Last Modified by GUIDE v2.5 27-Apr-2012 12:04:18
+
+% Begin initialization code - DO NOT EDIT
+gui_Singleton = 1;
+gui_State = struct('gui_Name',       mfilename, ...
+                   'gui_Singleton',  gui_Singleton, ...
+                   'gui_OpeningFcn', @ONOFF_OPDesicions_OpeningFcn, ...
+                   'gui_OutputFcn',  @ONOFF_OPDesicions_OutputFcn, ...
+                   'gui_LayoutFcn',  [] , ...
+                   'gui_Callback',   []);
+if nargin && ischar(varargin{1})
+    gui_State.gui_Callback = str2func(varargin{1});
+end
+
+if nargout
+    [varargout{1:nargout}] = gui_mainfcn(gui_State, varargin{:});
+else
+    gui_mainfcn(gui_State, varargin{:});
+end
+% End initialization code - DO NOT EDIT
+
+
+
+% --- Executes just before ONOFF_OPDesicions is made visible.
+function ONOFF_OPDesicions_OpeningFcn(hObject, eventdata, handles, varargin)
+% This function has no output args, see OutputFcn.
+% hObject    handle to figure
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+% varargin   command line arguments to ONOFF_OPDesicions (see VARARGIN)
+
+% Choose default command line output for ONOFF_OPDesicions
+handles.output = hObject;
+
+% Update handles structure
+guidata(hObject, handles);
+
+% UIWAIT makes ONOFF_OPDesicions wait for user response (see UIRESUME)
+% uiwait(handles.figure1);
+
+axes(handles.axes1)
+[x,map]=imread('Burner.jpg','jpg');
+image(x),colormap(map),axis off,hold on
+
+axes(handles.axes2)
+background = imread('Incandescent_Bulb.jpg');
+axis off;
+imshow(background);
+
+
+axes(handles.axes3)
+background = imread('CFL_lighting.jpg');
+axis off;
+imshow(background);
+
+axes(handles.axes4)
+background = imread('Fluorescent_Tube.jpg');
+axis off;
+imshow(background);
+
+
+axes(handles.axes5)
+[x,map]=imread('Dishwasher.jpg','jpg');
+image(x),colormap(map),axis off,hold on
+
+axes(handles.axes6)
+[x,map]=imread('Washers_Dryers.jpg','jpg');
+image(x),colormap(map),axis off,hold on
+
+
+axes(handles.axes7)
+[x,map]=imread('Dryer.jpg','jpg');
+image(x),colormap(map),axis off,hold on
+
+
+
+
+
+Stove_OP    =  str2double(get_param('Energy_Cost/OPs/Stove_OP','Value'));
+Lighting_OP =  str2double(get_param('Energy_Cost/OPs/Lighting_OP','Value'));
+Dryer_OP    =  str2double(get_param('Energy_Cost/OPs/Dryer_OP','Value'));
+Dishwasher_OP = str2double(get_param('Energy_Cost/OPs/Dishwasher_OP','Value'));
+Washer_OP = str2double(get_param('Energy_Cost/OPs/Washer_OP','Value'));
+EveryOP =  str2double(get_param('Energy_Cost/OPs/EveryOP','Value'));
+
+if Stove_OP==1
+    set(handles.uipanelStove,'Visible','On');
+end 
+if Lighting_OP==1
+    set(handles.uipanelLights,'Visible','On');
+end 
+if Dryer_OP==1
+    set(handles.uipanelDryer,'Visible','On');    
+end 
+if Dishwasher_OP==1
+    set(handles.uipanelDishwasher,'Visible','On');    
+end 
+if Washer_OP==1
+    set(handles.uipanelClothwasher,'Visible','On');
+end 
+% if EveryOP==1
+%     set(handles.uipanelnote,'Visible','On');
+% end
+
+
+if EveryOP==1
+    text27  = {'The optimized On/Off desicion must be in the file:',...
+               '5minOpONOFFDec.xlsx'};
+elseif EveryOP==2
+    text27  = {'The optimized On/Off desicion must be in the file:',...
+               '10minOpONOFFDec.xlsx'};
+elseif EveryOP==3
+    text27  = {'The optimized On/Off desicion must be in the file:',...
+               '15minOpONOFFDec.xlsx'};
+elseif EveryOP==4
+    text27  = {'The optimized On/Off desicion must be in the file:',...
+               '20minOpONOFFDec.xlsx'};
+elseif EveryOP==5
+    text27  = {'The optimized On/Off desicion must be in the file:',...
+               '25minOpONOFFDec.xlsx'};
+elseif EveryOP==6
+    text27  = {'The optimized On/Off desicion must be in the file:',...
+               '30minOpONOFFDec.xlsx'};
+end
+           
+    
+    
+    
+% Create a text
+set(handles.text27,'Units', 'characters',...
+                  'HorizontalAlignment','left',...
+                 'FontWeight','bold',... 
+                 'Position', [1 2.54 58 3],...
+                 'String',  text27,...
+                 'FontSize',  8);
+
+             
+             
+
+
+% --- Outputs from this function are returned to the command line.
+function varargout = ONOFF_OPDesicions_OutputFcn(hObject, eventdata, handles) 
+% varargout  cell array for returning output args (see VARARGOUT);
+% hObject    handle to figure
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Get default command line output from handles structure
+varargout{1} = handles.output;
+
+
+% --- Executes on selection change in MinutesLoad_CW.
+function MinutesLoad_CW_Callback(hObject, eventdata, handles)
+% hObject    handle to MinutesLoad_CW (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: contents = cellstr(get(hObject,'String')) returns MinutesLoad_CW contents as cell array
+%        contents{get(hObject,'Value')} returns selected item from MinutesLoad_CW
+
+
+% --- Executes during object creation, after setting all properties.
+function MinutesLoad_CW_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to MinutesLoad_CW (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: popupmenu controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+% --- Executes on button press in checkifHW_CW.
+function checkifHW_CW_Callback(hObject, eventdata, handles)
+% hObject    handle to checkifHW_CW (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hint: get(hObject,'Value') returns toggle state of checkifHW_CW
+
+
+
+function AnnualPower_CW_Callback(hObject, eventdata, handles)
+% hObject    handle to AnnualPower_CW (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of AnnualPower_CW as text
+%        str2double(get(hObject,'String')) returns contents of AnnualPower_CW as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function AnnualPower_CW_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to AnnualPower_CW (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+% --- Executes on selection change in popupmenu12.
+function popupmenu12_Callback(hObject, eventdata, handles)
+% hObject    handle to popupmenu12 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: contents = cellstr(get(hObject,'String')) returns popupmenu12 contents as cell array
+%        contents{get(hObject,'Value')} returns selected item from popupmenu12
+
+
+% --- Executes during object creation, after setting all properties.
+function popupmenu12_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to popupmenu12 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: popupmenu controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+% --- Executes on selection change in MinutesLoad_DW.
+function MinutesLoad_DW_Callback(hObject, eventdata, handles)
+% hObject    handle to MinutesLoad_DW (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: contents = cellstr(get(hObject,'String')) returns MinutesLoad_DW contents as cell array
+%        contents{get(hObject,'Value')} returns selected item from MinutesLoad_DW
+
+
+% --- Executes during object creation, after setting all properties.
+function MinutesLoad_DW_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to MinutesLoad_DW (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: popupmenu controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+% --- Executes on button press in checkifHW_DW.
+function checkifHW_DW_Callback(hObject, eventdata, handles)
+% hObject    handle to checkifHW_DW (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hint: get(hObject,'Value') returns toggle state of checkifHW_DW
+
+
+
+function AnnualPower_DW_Callback(hObject, eventdata, handles)
+% hObject    handle to AnnualPower_DW (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of AnnualPower_DW as text
+%        str2double(get(hObject,'String')) returns contents of AnnualPower_DW as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function AnnualPower_DW_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to AnnualPower_DW (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+% --- Executes on selection change in SizeBurner_ST.
+function SizeBurner_ST_Callback(hObject, eventdata, handles)
+% hObject    handle to SizeBurner_ST (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: contents = cellstr(get(hObject,'String')) returns SizeBurner_ST contents as cell array
+%        contents{get(hObject,'Value')} returns selected item from SizeBurner_ST
+
+
+% --- Executes during object creation, after setting all properties.
+function SizeBurner_ST_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to SizeBurner_ST (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: popupmenu controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+% --- Executes on slider movement.
+function slider_intST_Callback(hObject, eventdata, handles)
+% hObject    handle to slider_intST (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'Value') returns position of slider
+%        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
+
+
+% --- Executes during object creation, after setting all properties.
+function slider_intST_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to slider_intST (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: slider controls usually have a light gray background.
+if isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor',[.9 .9 .9]);
+end
+
+
+% --- Executes on selection change in NumUsedBurner_ST.
+function NumUsedBurner_ST_Callback(hObject, eventdata, handles)
+% hObject    handle to NumUsedBurner_ST (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: contents = cellstr(get(hObject,'String')) returns NumUsedBurner_ST contents as cell array
+%        contents{get(hObject,'Value')} returns selected item from NumUsedBurner_ST
+
+
+% --- Executes during object creation, after setting all properties.
+function NumUsedBurner_ST_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to NumUsedBurner_ST (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: popupmenu controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+
+function HmanyFLUTubes_LG_Callback(hObject, eventdata, handles)
+% hObject    handle to HmanyFLUTubes_LG (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of HmanyFLUTubes_LG as text
+%        str2double(get(hObject,'String')) returns contents of HmanyFLUTubes_LG as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function HmanyFLUTubes_LG_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to HmanyFLUTubes_LG (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+% --- Executes on selection change in PowerFLUTubes_LG.
+function PowerFLUTubes_LG_Callback(hObject, eventdata, handles)
+% hObject    handle to PowerFLUTubes_LG (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: contents = cellstr(get(hObject,'String')) returns PowerFLUTubes_LG contents as cell array
+%        contents{get(hObject,'Value')} returns selected item from PowerFLUTubes_LG
+
+
+% --- Executes during object creation, after setting all properties.
+function PowerFLUTubes_LG_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to PowerFLUTubes_LG (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: popupmenu controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+
+function HmanyCFLs_LG_Callback(hObject, eventdata, handles)
+% hObject    handle to HmanyCFLs_LG (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of HmanyCFLs_LG as text
+%        str2double(get(hObject,'String')) returns contents of HmanyCFLs_LG as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function HmanyCFLs_LG_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to HmanyCFLs_LG (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+% --- Executes on selection change in PowerCFLs_LG.
+function PowerCFLs_LG_Callback(hObject, eventdata, handles)
+% hObject    handle to PowerCFLs_LG (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: contents = cellstr(get(hObject,'String')) returns PowerCFLs_LG contents as cell array
+%        contents{get(hObject,'Value')} returns selected item from PowerCFLs_LG
+
+
+% --- Executes during object creation, after setting all properties.
+function PowerCFLs_LG_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to PowerCFLs_LG (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: popupmenu controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+% --- Executes on selection change in PowerBulb_LG.
+function PowerBulb_LG_Callback(hObject, eventdata, handles)
+% hObject    handle to PowerBulb_LG (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: contents = cellstr(get(hObject,'String')) returns PowerBulb_LG contents as cell array
+%        contents{get(hObject,'Value')} returns selected item from PowerBulb_LG
+
+
+% --- Executes during object creation, after setting all properties.
+function PowerBulb_LG_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to PowerBulb_LG (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: popupmenu controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+
+function HmanyBulbs_LG_Callback(hObject, eventdata, handles)
+% hObject    handle to HmanyBulbs_LG (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of HmanyBulbs_LG as text
+%        str2double(get(hObject,'String')) returns contents of HmanyBulbs_LG as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function HmanyBulbs_LG_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to HmanyBulbs_LG (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+% --- Executes on selection change in MinutesLoad_DY.
+function MinutesLoad_DY_Callback(hObject, eventdata, handles)
+% hObject    handle to MinutesLoad_DY (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: contents = cellstr(get(hObject,'String')) returns MinutesLoad_DY contents as cell array
+%        contents{get(hObject,'Value')} returns selected item from MinutesLoad_DY
+
+
+% --- Executes during object creation, after setting all properties.
+function MinutesLoad_DY_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to MinutesLoad_DY (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: popupmenu controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+% --- Executes on button press in ContinueOP.
+function ContinueOP_Callback(hObject, eventdata, handles)
+% hObject    handle to ContinueOP (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+
+SizeBurner_ST = get(handles.SizeBurner_ST,'Value');
+NumUsedBurner_ST = get(handles.NumUsedBurner_ST,'Value');
+Int_ST = get(handles.Int_ST,'Value');
+
+
+MinutesLoad_DW =  get(handles.MinutesLoad_DW,'Value');
+checkifHW_DW   =  get(handles.checkifHW_DW,'Value');
+AnnualPower_DW =  get(handles.AnnualPower_DW,'Value');
+LowEff_DW      =  get(handles.LowEff_DW,'Value');
+EnerStar_DW    =  get(handles.EnerStar_DW,'Value');
+
+
+MinutesLoad_CW =  get(handles.MinutesLoad_CW,'Value');
+checkifHW_CW   =  get(handles.checkifHW_CW,'Value');
+AnnualPower_CW =  get(handles.AnnualPower_CW,'Value');
+LowEff_CW      =  get(handles.LowEff_CW,'Value');
+EnerStar_CW    =  get(handles.EnerStar_CW,'Value');
+
+
+PowerBulb_LG  = get(handles.PowerBulb_LG,'Value');
+HmanyBulbs_LG = get(handles.HmanyBulbs_LG,'Value');
+
+PowerCFLs_LG  = get(handles.PowerCFLs_LG,'Value');
+HmanyCFLs_LG = get(handles.HmanyCFLs_LG,'Value');
+
+PowerFLUTubes_LG  = get(handles.PowerFLUTubes_LG,'Value');
+HmanyFLUTubes_LG = get(handles.HmanyFLUTubes_LG,'Value');
+
+ONOFF_ST = xlsread('15minOpONOFFDec.xlsx',1, 'F2:F97');
+ONOFF_DW = xlsread('15minOpONOFFDec.xlsx',1, 'G2:G97');
+ONOFF_CW = xlsread('15minOpONOFFDec.xlsx',1, 'H2:H97');
+ONOFF_DY = xlsread('15minOpONOFFDec.xlsx',1, 'I2:I97');
+ONOFF_LGBulb  = xlsread('15minOpONOFFDec.xlsx',1, 'J2:J97');
+ONOFF_LGCFLs  = xlsread('15minOpONOFFDec.xlsx',1, 'K2:K97');
+ONOFF_LGTubes = xlsread('15minOpONOFFDec.xlsx',1, 'L2:L97');
+
+
+save('ONOFF_OPDesicions');
+close('ONOFF_OPDesicions');
+
+
+
+
+% Lighting_OP =  str2double(get_param('Energy_Cost/OPs/Lighting_OP','Value'));
+% Dryer_OP    =  str2double(get_param('Energy_Cost/OPs/Dryer_OP','Value'));
+% Dishwasher_OP = str2double(get_param('Energy_Cost/OPs/Dishwasher_OP','Value'));
+% Washer_OP = str2double(get_param('Energy_Cost/OPs/Washer_OP','Value'));
+% EveryOP =  str2double(get_param('Energy_Cost/OPs/EveryOP','Value'));

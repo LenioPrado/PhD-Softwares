@@ -1,0 +1,14 @@
+jicp://200.235.66.170:1099
+Main-Container@200.235.66.170
+
+java -cp lib\jade.jar jade.Boot -gui -platform-id MyPlatform
+java -cp lib\jade.jar jade.Boot -gui -local-host jade.tilab.com
+java -cp lib\jade.jar jade.Boot -gui -local-port 1099
+java -cp lib\jade.jar;classes jade.Boot -gui -agents ping1:examples.PingAgent.PingAgent 
+java -cp lib\jade.jar;classes jade.Boot -gui -agents ping1:examples.PingAgent.PingAgent;ping2:examples.PingAgent.PingAgent 
+
+-gui -host 200.235.66.170 -port 1099 -agents ping1:examples.PingAgent.PingAgent;ping2:examples.PingAgent.PingAgent
+
+
+Compilando:
+javac -classpath lib\jade.jar -d classes src\examples\PingAgent\*.java

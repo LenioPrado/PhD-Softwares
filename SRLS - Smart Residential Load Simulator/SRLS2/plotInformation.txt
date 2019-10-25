@@ -1,0 +1,99 @@
+## Appliances Energy
+
+	load Energy.mat;
+
+    axes(handles.axes1);
+    EnePlot=plot(time,Ener);grid on;
+    set(EnePlot, 'Visible', 'off');
+
+    sel1 = eventdata.Indices;
+    selrows = unique(sel1(:,1));
+    table = get(hObject,'Data'); % Get copy of uitable data
+    Ener1=Ener(selrows,:);
+    lege = table(selrows,:);
+    EnePlot = plot(time,Ener1,'Visible','on'); 
+    xlabel('Time (hrs)');ylabel('Energy  (kWh)');
+    h=legend(lege);
+    set(h,'Location','NorthWest');
+    title('Energy consumption');
+	
+	
+	
+### Appliances Cost
+
+	load Cost_Ener.mat;
+
+    axes(handles.axes2);
+    EnePlot=plot(time,Cost);grid on;
+    set(EnePlot, 'Visible', 'off');
+    
+	sel1 = eventdata.Indices;
+	selrows = unique(sel1(:,1));
+	table = get(hObject,'Data'); % Get copy of uitable data
+	Cost1=Cost(selrows,:);
+	lege = table(selrows,:);
+	EnePlot = plot(time,Cost1,'Visible','on'); 
+	xlabel('Time (hrs)'); ylabel('Cost (¢)');
+	h=legend(lege);
+	set(h,'Location','NorthWest');
+    title('Cost of energy'); 	
+	
+	
+### Generation Energy
+
+	load Gen1.mat;
+
+    axes(handles.axes6);
+    EnePlot=plot(time,Gen1);grid on;
+    set(EnePlot, 'Visible', 'off');
+
+    sel1 = eventdata.Indices;
+    selrows = unique(sel1(:,1));
+    table = get(hObject,'Data'); % Get copy of uitable data
+    Gen2=Gen1(selrows,:);
+    lege = table(selrows,:);
+    EnePlot = plot(time,Gen2,'Visible','on'); 
+    xlabel('Time (hrs)');ylabel('Energy  (kWh)');
+    h=legend(lege);
+    set(h,'Location','NorthWest');
+    title('Energy Generation');	
+	
+
+### Generation Cost
+	
+	load Gen2.mat;
+
+    axes(handles.axes7);
+    EnePlot=plot(time,Gen2);grid on;
+    set(EnePlot, 'Visible', 'off');
+    
+	sel1 = eventdata.Indices;
+	selrows = unique(sel1(:,1));
+	table = get(hObject,'Data'); % Get copy of uitable data
+	GenCost1=Gen2(selrows,:);
+	lege = table(selrows,:);
+	EnePlot = plot(time,GenCost1,'Visible','on'); 
+	xlabel('Time (hrs)'); ylabel('Saving (¢)');
+	h=legend(lege);
+	set(h,'Location','NorthWest');
+    title('Cost of energy'); 	
+	
+
+### State-Of-Charge
+	
+	load Gen3.mat;
+
+    axes(handles.axes8);
+    EnePlot=plot(time,Gen3);grid on;
+    set(EnePlot, 'Visible', 'off');
+    
+	sel1 = eventdata.Indices;
+	selrows = unique(sel1(:,1));
+	table = get(hObject,'Data'); % Get copy of uitable data
+	GenCost3=Gen3(selrows,:);
+	lege = table(selrows,:);
+	EnePlot = plot(time,GenCost3,'Visible','on'); 
+	xlabel('Time (hrs)'); ylabel('SOC (%)');
+	h=legend(lege);
+	set(h,'Location','NorthWest');
+	title('Initial State-Of-Charge'); 	

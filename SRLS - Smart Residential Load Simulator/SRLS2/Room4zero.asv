@@ -1,0 +1,10 @@
+set_param('Energy_Cost/House/Room_1/1st term','Gain',num2str(1/Cw1));
+set_param('Energy_Cost/House/Room_1/2nd term','Gain',num2str(1/(Rw1*Cw1)));
+set_param('Energy_Cost/House/Room_1/3th term','Gain',num2str(1/(Rw1*Cw1)));
+set_param('Energy_Cost/House/Room_1/4th term','Gain',num2str(2/(Rw1*Cw1)));
+
+set_param('Energy_Cost/House/Room_1/1st term 2','Gain',num2str(   1/Ci1   ));
+set_param('Energy_Cost/House/Room_1/2nd term 2','Gain',num2str(   1/Ci1   ));
+set_param('Energy_Cost/House/Room_1/3th term 2','Gain',num2str(  (1/Ci1)*( (1/Rw1) + (1/Rc1))  ));
+set_param('Energy_Cost/House/Room_1/4th term 2','Gain',num2str( 1/(Rw1*Ci1) ));
+set_param('Energy_Cost/House/Room_1/5th term 2','Gain',num2str( 1/(Rc1*Ci1) ));

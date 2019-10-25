@@ -1,0 +1,259 @@
+function defineValues()
+
+    set_param('Energy_Cost/Water Heater/Rates/Rate_Ele_WH','Value',num2str(0));
+    set_param('Energy_Cost/Water Heater/Rates/Rate_Gas_WH','Value',num2str(1));
+    Tinlet = 10;
+    Tamb = 20;
+    Q_WH = 40000;
+    SetP_WH = 55;
+    Vol = 184;
+    Vol = 184;
+    EF = 0.62;
+
+    UA_WH = 6837.48;  %J/hrs o^C Thermal conductivity
+    mdot_WH = 999.4;   %kg/m3     mass of water
+    Cp_WH = 4186.8;    %J/kg o^C  specific heat of water
+              %Ltr-->m3
+    Cw_WH = (Vol*0.001)*Cp_WH*mdot_WH;    %thermal Capacitance of water
+    Joule_Watts = 1/(3600*EF);
+    Cp_mdot=Cp_WH*mdot_WH;
+    Q_WH_EF=Q_WH*EF*3600*0.293083;   % 0.293083BTU--->Watts 3600 because Watts --->Joules
+    OnOff_WH =1;
+
+    set_param('Energy_Cost/Set Point WH','Value',num2str(SetP_WH));
+    set_param('Energy_Cost/T_amb','Value',num2str(Tamb));
+
+    set_param('Energy_Cost/Water Heater/OnOff WH','Value',num2str(OnOff_WH));
+    set_param('Energy_Cost/Water Heater/Q_WH*EF','Value',num2str(Q_WH_EF));
+    set_param('Energy_Cost/Water Heater/UA_WH','Value',num2str(UA_WH));
+    set_param('Energy_Cost/Water Heater/UA_WH1','Value',num2str(UA_WH));
+    set_param('Energy_Cost/Water Heater/1_(3600*EF)','Gain',num2str(Joule_Watts));
+    set_param('Energy_Cost/Water Heater/Cp_WH*mdot_WH','Value',num2str(Cp_WH*mdot_WH));
+    set_param('Energy_Cost/Water Heater/Tinlet','Gain',num2str(Tinlet));
+    set_param('Energy_Cost/Water Heater/1_Cw_WH','Gain',num2str(1/Cw_WH));
+    set_param('Energy_Cost/Water Heater/mdot_WH*Cp_WH','Gain',num2str(mdot_WH*Cp_WH));
+    set_param('Energy_Cost/Water Heater/Integrator1','InitialCondition',num2str(SetP_WH));
+    %************************************************************************************
+
+    set_param('Energy_Cost/Dryer/DY_OnOff','Value',num2str(1));
+    set_param('Energy_Cost/Dryer/LoadsDay','Value',num2str(3));
+    set_param('Energy_Cost/Dryer/MinOfLoad','Value',num2str(80));
+    set_param('Energy_Cost/Dryer/WhenUsed1','Value',num2str(10));
+    set_param('Energy_Cost/Dryer/WhenUsed2','Value',num2str(15));
+    set_param('Energy_Cost/Dryer/WhenUsed3','Value',num2str(20));
+    % 
+    % %*************************************************************************************
+    set_param('Energy_Cost/Clothwasher/DW_OnOff','Value',num2str(1));
+    set_param('Energy_Cost/Clothwasher/LoadsDay','Value',num2str(3));
+    set_param('Energy_Cost/Clothwasher/MinOfLoad','Value',num2str(60));
+    set_param('Energy_Cost/Clothwasher/WhenUsed1','Value',num2str(8));
+    set_param('Energy_Cost/Clothwasher/WhenUsed2','Value',num2str(13));
+    set_param('Energy_Cost/Clothwasher/WhenUsed3','Value',num2str(18));
+    set_param('Energy_Cost/Clothwasher/TypeDW','Value',num2str(1));
+    set_param('Energy_Cost/Clothwasher/WH conected','Value',num2str(0));
+    set_param('Energy_Cost/Clothwasher/WaterTemp','Value',num2str(1));
+    % 
+    % %**************************************************************************************
+    % 
+    set_param('Energy_Cost/Dishwasher/DW_OnOff','Value',num2str(1));
+    set_param('Energy_Cost/Dishwasher/LoadsDay','Value',num2str(3));
+    set_param('Energy_Cost/Dishwasher/MinOfLoad','Value',num2str(120));
+    set_param('Energy_Cost/Dishwasher/WhenUsed1','Value',num2str(10));
+    set_param('Energy_Cost/Dishwasher/WhenUsed2','Value',num2str(15));
+    set_param('Energy_Cost/Dishwasher/WhenUsed3','Value',num2str(21.5));
+    set_param('Energy_Cost/Dishwasher/TypeDW','Value',num2str(1));
+    set_param('Energy_Cost/Dishwasher/WH conected','Value',num2str(0));
+
+    %*************************************************************************************
+
+    set_param('Energy_Cost/PoolPump/PP_OnOff','Value',num2str(1));%PoolPump off
+    set_param('Energy_Cost/PoolPump/LoadsDay','Value',num2str(3));
+    set_param('Energy_Cost/PoolPump/MinOfLoad','Value',num2str(180));
+    set_param('Energy_Cost/PoolPump/WhenUsed1','Value',num2str(5));
+    set_param('Energy_Cost/PoolPump/WhenUsed2','Value',num2str(14));
+    set_param('Energy_Cost/PoolPump/WhenUsed3','Value',num2str(22));
+
+    %*************************************************************************************
+    set_param('Energy_Cost/Battery/BT_OnOff','Value',num2str(1));%Battery off
+    set_param('Energy_Cost/Battery/Power1','Value',num2str(0));
+    set_param('Energy_Cost/Battery/Power2','Value',num2str(0));
+    set_param('Energy_Cost/Battery/Power3','Value',num2str(0));
+    set_param('Energy_Cost/Battery/Power4','Value',num2str(0));
+    set_param('Energy_Cost/Battery/Power5','Value',num2str(0));
+    set_param('Energy_Cost/Battery/Power6','Value',num2str(0));
+    set_param('Energy_Cost/Battery/Power7','Value',num2str(0));
+    set_param('Energy_Cost/Battery/Power8','Value',num2str(0));
+    set_param('Energy_Cost/Battery/Power9','Value',num2str(0));
+    set_param('Energy_Cost/Battery/Power10','Value',num2str(0));
+    set_param('Energy_Cost/Battery/Power11','Value',num2str(0));
+    set_param('Energy_Cost/Battery/Power12','Value',num2str(0));
+    set_param('Energy_Cost/Battery/Power13','Value',num2str(0));
+    set_param('Energy_Cost/Battery/Power14','Value',num2str(0));
+    set_param('Energy_Cost/Battery/Power15','Value',num2str(0));
+    set_param('Energy_Cost/Battery/Power16','Value',num2str(0));
+    set_param('Energy_Cost/Battery/Power17','Value',num2str(0));
+    set_param('Energy_Cost/Battery/Power18','Value',num2str(0));
+    set_param('Energy_Cost/Battery/Power19','Value',num2str(0));
+    set_param('Energy_Cost/Battery/Power20','Value',num2str(0));
+    set_param('Energy_Cost/Battery/Power21','Value',num2str(0));
+    set_param('Energy_Cost/Battery/Power22','Value',num2str(0));
+    set_param('Energy_Cost/Battery/Power23','Value',num2str(0));
+    set_param('Energy_Cost/Battery/Power24','Value',num2str(0));
+    set_param('Energy_Cost/Battery/Power25','Value',num2str(0));
+
+    %*************************************************************************************
+    set_param('Energy_Cost/PV/PV_OnOff','Value',num2str(1)); %PV off
+    set_param('Energy_Cost/PV/Radiation1','Value',num2str(0));
+    set_param('Energy_Cost/PV/Radiation2','Value',num2str(0));
+    set_param('Energy_Cost/PV/Radiation3','Value',num2str(0));
+    set_param('Energy_Cost/PV/Radiation4','Value',num2str(0));
+    set_param('Energy_Cost/PV/Radiation5','Value',num2str(0));
+    set_param('Energy_Cost/PV/Radiation6','Value',num2str(0));
+    set_param('Energy_Cost/PV/Radiation7','Value',num2str(0));
+    set_param('Energy_Cost/PV/Radiation8','Value',num2str(0));
+    set_param('Energy_Cost/PV/Radiation9','Value',num2str(0));
+    set_param('Energy_Cost/PV/Radiation10','Value',num2str(0));
+    set_param('Energy_Cost/PV/Radiation11','Value',num2str(0));
+    set_param('Energy_Cost/PV/Radiation12','Value',num2str(0));
+    set_param('Energy_Cost/PV/Radiation13','Value',num2str(0));
+    set_param('Energy_Cost/PV/Radiation14','Value',num2str(0));
+    set_param('Energy_Cost/PV/Radiation15','Value',num2str(0));
+    set_param('Energy_Cost/PV/Radiation16','Value',num2str(0));
+    set_param('Energy_Cost/PV/Radiation17','Value',num2str(0));
+    set_param('Energy_Cost/PV/Radiation18','Value',num2str(0));
+    set_param('Energy_Cost/PV/Radiation19','Value',num2str(0));
+    set_param('Energy_Cost/PV/Radiation20','Value',num2str(0));
+    set_param('Energy_Cost/PV/Radiation21','Value',num2str(0));
+    set_param('Energy_Cost/PV/Radiation22','Value',num2str(0));
+    set_param('Energy_Cost/PV/Radiation23','Value',num2str(0));
+    set_param('Energy_Cost/PV/Radiation24','Value',num2str(0));
+
+
+    %*************************************************************************************
+    set_param('Energy_Cost/Wind/WD_OnOff','Value',num2str(1)); %wind off
+    set_param('Energy_Cost/Wind/Power1','Value',num2str(0));
+    set_param('Energy_Cost/Wind/Power2','Value',num2str(0));
+    set_param('Energy_Cost/Wind/Power3','Value',num2str(0));
+    set_param('Energy_Cost/Wind/Power4','Value',num2str(0));
+    set_param('Energy_Cost/Wind/Power5','Value',num2str(0));
+    set_param('Energy_Cost/Wind/Power6','Value',num2str(0));
+    set_param('Energy_Cost/Wind/Power7','Value',num2str(0));
+    set_param('Energy_Cost/Wind/Power8','Value',num2str(0));
+    set_param('Energy_Cost/Wind/Power9','Value',num2str(0));
+    set_param('Energy_Cost/Wind/Power10','Value',num2str(0));
+    set_param('Energy_Cost/Wind/Power11','Value',num2str(0));
+    set_param('Energy_Cost/Wind/Power12','Value',num2str(0));
+    set_param('Energy_Cost/Wind/Power13','Value',num2str(0));
+    set_param('Energy_Cost/Wind/Power14','Value',num2str(0));
+    set_param('Energy_Cost/Wind/Power15','Value',num2str(0));
+    set_param('Energy_Cost/Wind/Power16','Value',num2str(0));
+    set_param('Energy_Cost/Wind/Power17','Value',num2str(0));
+    set_param('Energy_Cost/Wind/Power18','Value',num2str(0));
+    set_param('Energy_Cost/Wind/Power19','Value',num2str(0));
+    set_param('Energy_Cost/Wind/Power20','Value',num2str(0));
+    set_param('Energy_Cost/Wind/Power21','Value',num2str(0));
+    set_param('Energy_Cost/Wind/Power22','Value',num2str(0));
+    set_param('Energy_Cost/Wind/Power23','Value',num2str(0));
+    set_param('Energy_Cost/Wind/Power24','Value',num2str(0));
+
+    %*************************************************************************************
+    set_param('Energy_Cost/Range/OnOff_Range','Value',num2str(1)); 
+    set_param('Energy_Cost/Range/B1','Value',num2str(.60));
+    set_param('Energy_Cost/Range/B2','Value',num2str(.40));
+    set_param('Energy_Cost/Range/B3','Value',num2str(.40));
+    set_param('Energy_Cost/Range/B4','Value',num2str(.60));
+    % set_param('Energy_Cost/Range/B5','Value',num2str(B5));
+    set_param('Energy_Cost/Range/switchedOn_Mor1','Value',num2str(7));
+    set_param('Energy_Cost/Range/switchedOn_Noon1','Value',num2str(14));
+    set_param('Energy_Cost/Range/switchedOn_Nig1','Value',num2str(20.30));
+    set_param('Energy_Cost/Range/TOU_Mor1','Value',num2str(.66667));
+    set_param('Energy_Cost/Range/TOU_Noon1','Value',num2str(1.5));
+    set_param('Energy_Cost/Range/TOU_Nig1','Value',num2str(.5));
+    %*************************************************************************************
+
+    set_param('Energy_Cost/Lighting/Power','Value',num2str(100));
+    set_param('Energy_Cost/Lighting/Power_CFL','Value',num2str(20));
+    set_param('Energy_Cost/Lighting/Power_FLU','Value',num2str(15));
+    set_param('Energy_Cost/Lighting/H_Many','Value',num2str(3));
+    set_param('Energy_Cost/Lighting/H_Many_CFL','Value',num2str(6));
+    set_param('Energy_Cost/Lighting/H_Many_FLU','Value',num2str(4));
+    set_param('Energy_Cost/Lighting/ON_Morning','Value',num2str(5));
+    set_param('Energy_Cost/Lighting/ON_Morning_CFL','Value',num2str(5.5));
+    set_param('Energy_Cost/Lighting/ON_Morning_FLU','Value',num2str(5));
+    set_param('Energy_Cost/Lighting/hrs_Morning','Value',num2str(2));
+    set_param('Energy_Cost/Lighting/hrs_Morning_CFL','Value',num2str(2.5));
+    set_param('Energy_Cost/Lighting/hrs_Morning_FLU','Value',num2str(3));
+    set_param('Energy_Cost/Lighting/ON_Night','Value',num2str(18));
+    set_param('Energy_Cost/Lighting/ON_Night_CFL','Value',num2str(15));
+    set_param('Energy_Cost/Lighting/ON_Night_FLU','Value',num2str(15));
+    set_param('Energy_Cost/Lighting/hrs_Night','Value',num2str(5));
+    set_param('Energy_Cost/Lighting/hrs_Night_CFL','Value',num2str(5.5));
+    set_param('Energy_Cost/Lighting/hrs_Night_FLU','Value',num2str(6));
+    %*************************************************************************************
+    set_param('Energy_Cost/Air Conditioner/AA_OnOff','Value',num2str(1));
+    set_param('Energy_Cost/Air Conditioner/Q_AC','Value',num2str(-50644783.1184));
+
+    %*************************************************************************************
+    set_param('Energy_Cost/House/Room_1/Integrator1','InitialCondition',num2str(21));
+        set_param('Energy_Cost/House/Room_2/Integrator1','InitialCondition',num2str(21));
+        set_param('Energy_Cost/House/Room_3/Integrator1','InitialCondition',num2str(21));
+        set_param('Energy_Cost/House/Room_4/Integrator1','InitialCondition',num2str(21));
+    %*************************************************************************************
+    set_param('Energy_Cost/House/Room_1/Integrator1','InitialCondition',num2str(21));
+        set_param('Energy_Cost/House/Room_2/Integrator1','InitialCondition',num2str(21));
+        set_param('Energy_Cost/House/Room_3/Integrator1','InitialCondition',num2str(21));
+        set_param('Energy_Cost/House/Room_4/Integrator1','InitialCondition',num2str(21));
+
+    % first room    
+        set_param('Energy_Cost/House/Room_1/1st term1','Gain',num2str(2.7488e-07));
+        set_param('Energy_Cost/House/Room_1/2nd term1','Gain',num2str(0.039108));
+        set_param('Energy_Cost/House/Room_1/3th term1','Gain',num2str(0.039108));
+        set_param('Energy_Cost/House/Room_1/4th term1','Gain',num2str(0.078216));
+        set_param('Energy_Cost/House/Room_1/1st term2','Gain',num2str(8.5839e-07));
+        set_param('Energy_Cost/House/Room_1/2nd term2','Gain',num2str(8.5839e-07));
+        set_param('Energy_Cost/House/Room_1/3th term2','Gain',num2str(1.624));
+        set_param('Energy_Cost/House/Room_1/4th term2','Gain',num2str(0.12213));
+        set_param('Energy_Cost/House/Room_1/5th term2','Gain',num2str(1.5018));
+        set_param('Energy_Cost/House/Room_1/%Loss','Value',num2str(.65454));
+    % Second room 
+        set_param('Energy_Cost/House/Room_2/1st term1','Gain',num2str(6.8066e-07));
+        set_param('Energy_Cost/House/Room_2/2nd term1','Gain',num2str(0.039108));
+        set_param('Energy_Cost/House/Room_2/3th term1','Gain',num2str(0.039108));
+        set_param('Energy_Cost/House/Room_2/4th term1','Gain',num2str(0.078216));
+        set_param('Energy_Cost/House/Room_2/1st term2','Gain',num2str(2.5752e-06));
+        set_param('Energy_Cost/House/Room_2/2nd term2','Gain',num2str(2.5752e-06));
+        set_param('Energy_Cost/House/Room_2/3th term2','Gain',num2str(0.89888));
+        set_param('Energy_Cost/House/Room_2/4th term2','Gain',num2str(0.14796));
+        set_param('Energy_Cost/House/Room_2/5th term2','Gain',num2str(0.75092));
+        set_param('Energy_Cost/House/Room_2/%Loss','Value',num2str(0.11515));
+
+    % Third room 
+        set_param('Energy_Cost/House/Room_3/1st term1','Gain',num2str(6.0825e-07));
+        set_param('Energy_Cost/House/Room_3/2nd term1','Gain',num2str(0.039108));
+        set_param('Energy_Cost/House/Room_3/3th term1','Gain',num2str(0.039108));
+        set_param('Energy_Cost/House/Room_3/4th term1','Gain',num2str(0.078216));
+        set_param('Energy_Cost/House/Room_3/1st term2','Gain',num2str(2.2533e-06));
+        set_param('Energy_Cost/House/Room_3/2nd term2','Gain',num2str(2.2533e-06));
+        set_param('Energy_Cost/House/Room_3/3th term2','Gain',num2str(0.80194));
+        set_param('Energy_Cost/House/Room_3/4th term2','Gain',num2str(0.14488));
+        set_param('Energy_Cost/House/Room_3/5th term2','Gain',num2str(0.65706));
+        set_param('Energy_Cost/House/Room_3/%Loss','Value',num2str(0.11638));    
+
+    % Fourth room 
+        set_param('Energy_Cost/House/Room_4/1st term1','Gain',num2str(7.7264e-07));
+        set_param('Energy_Cost/House/Room_4/2nd term1','Gain',num2str(0.039108));
+        set_param('Energy_Cost/House/Room_4/3th term1','Gain',num2str(0.039108));
+        set_param('Energy_Cost/House/Room_4/4th term1','Gain',num2str(0.078216));
+        set_param('Energy_Cost/House/Room_4/1st term2','Gain',num2str(3.0044e-06));
+        set_param('Energy_Cost/House/Room_4/2nd term2','Gain',num2str(3.0044e-06));
+        set_param('Energy_Cost/House/Room_4/3th term2','Gain',num2str(1.0281));
+        set_param('Energy_Cost/House/Room_4/4th term2','Gain',num2str(0.15207));
+        set_param('Energy_Cost/House/Room_4/5th term2','Gain',num2str(0.87608));
+        set_param('Energy_Cost/House/Room_4/%Loss','Value',num2str(0.11393));    
+
+
+    %*************************************************************************************
+    set_param('Energy_Cost/Refrigerator/AA_OnOff','Value',num2str(1)); 
+
+    %*************************************************************************************    
+end    
