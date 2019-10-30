@@ -1,4 +1,4 @@
-function powerValues = powerUsage()
+function powerValues = powerUsage(index)
 
     load Cost_KW_WH.mat;
     load Pow_Tem_WCon_WH;
@@ -10,10 +10,11 @@ function powerValues = powerUsage()
     load RoomsTemp;
     
     ACHT= str2num(get_param('Energy_Cost/Air Conditioner/AA or Heat','Value'));
-    
-    if ACHT==1  %% AC
+    ACHT = 2;
+   
+    if ACHT==1  %% Heater
         AC_HT = [Pow_Cost_AC(2,:).*(-1)/3.412; RoomsTemp(2:5,:)]; 
-    else        %% Heater
+    else        %% AC
         AC_HT = [Pow_Cost_AC(2,:)./3.412; RoomsTemp(2:5,:)];
     end
         
@@ -53,10 +54,13 @@ function powerValues = powerUsage()
     % Battery               -- TinBT(2,:)   -- 'Power (kW)'
     % Wind                  -- TinWD(2,:)   -- 'Power (kW)'
     % PV                    -- TinPV(2,:)   -- 'Power (kW)'
+     
+    %AC_HT(1,:)
+    powerSum = WH(3,:) + AC_HT(1,:) + Power_SV(1,:) + Pow_LG(1,:) + FG(1,:) + Power_DY(1,:) + Power_DW(1,:) + Power_CW(1,:) + Power_PP(1,:);
     
     defaultYLegend = 'Power (Watts)';
     defaultXLegend = 'Time in (hrs)';
-
+    
     powerValues = {
         'Water Heater' WH defaultXLegend { 'Temperature of water (^o C)' 'Water Consumption (Ltrs)' 'Power (kW)' };
         'Air Conditioner - Furnace' AC_HT defaultXLegend { 'Power (kW)' 'Outsidet Temp. (^oC)' 'Rooms Temp. (^o C)' };
@@ -70,7 +74,13 @@ function powerValues = powerUsage()
         'Battery' TinBT(2,:) defaultXLegend defaultYLegend;
         'Wind' TinWD(2,:) defaultXLegend defaultYLegend;
         'PV' TinPV(2,:) defaultXLegend defaultYLegend;
+        'House Power Sum' powerSum defaultXLegend defaultYLegend;
     };
-    
-    save('powerValues.mat', 'powerValues', 'time');
+  
+    if(index >= 0)
+        name = ['powerValues' num2str(index,'%d') '.mat'];
+    else
+        name = 'powerValues.mat';
+    end
+    save(name, 'powerValues', 'time');
 end

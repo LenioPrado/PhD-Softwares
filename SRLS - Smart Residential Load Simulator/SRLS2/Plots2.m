@@ -561,7 +561,7 @@ function Details_Callback(hObject, eventdata, handles)
 % Hints: contents = cellstr(get(hObject,'String')) returns Details contents as cell array
 %        contents{get(hObject,'Value')} returns selected item from Details
 
-
+a = get(handles.Details,'Value');
 %% WH
             load Cost_KW_WH.mat;
             load Pow_Tem_WCon_WH;
@@ -572,7 +572,7 @@ function Details_Callback(hObject, eventdata, handles)
             load Pow_Cost_AC;        % This is for the AC or Heater at the same time
             load RoomsTemp;
         ACHT= str2num(get_param('Energy_Cost/Air Conditioner/AA or Heat','Value'));
-                if ACHT==1
+        if ACHT==1
             AC_HT = [Pow_Cost_AC(2,:).*(-1)/3.412; RoomsTemp(2:5,:)]; 
         else 
             AC_HT = [Pow_Cost_AC(2,:)./3.412; RoomsTemp(2:5,:)]; 
@@ -591,28 +591,20 @@ function Details_Callback(hObject, eventdata, handles)
             load TinPV.mat;     %Wind
          FG = [Cost_KW_Fridge(2,:)./100; Tin(2,:)];   
 
-load Power_SV.mat;  %Range
-load Power_LG.mat;  %Lights
-load Power_CW.mat;  %Dish
-load Power_DY.mat;  %Dryer
-load Power_DW.mat;  %Dishwasher
-load Power_PP.mat;  %PoolPump
-load Pow_LG.mat; 
-
-
-
-
-
+    load Power_SV.mat;  %Range
+    load Power_LG.mat;  %Lights
+    load Power_CW.mat;  %Dish
+    load Power_DY.mat;  %Dryer
+    load Power_DW.mat;  %Dishwasher
+    load Power_PP.mat;  %PoolPump
+    load Pow_LG.mat; 
  
     if AC_HT==1
         Ener(2,:) = 0;
     else 
         Ener(3,:) = 0;
     end
-    
-    
-    
-a = get(handles.Details,'Value');
+
 if a==1
         axes(handles.axes3);
         plot(time,WH);

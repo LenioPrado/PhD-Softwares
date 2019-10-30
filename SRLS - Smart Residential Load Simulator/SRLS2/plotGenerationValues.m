@@ -2,7 +2,7 @@ function plotGenerationValues(simulationDescription)
 
     generationValues = {
         'Gen1.mat' 'Gen1' 'Energy  (kWh)' 'Energy Generation';
-        'Gen2.mat' 'Gen2' 'Saving (¢)' 'Cost of energy'
+        'Gen2.mat' 'Gen2' 'Saving (¢)' 'Generation Cost'
     };
 
     generationsNames = {'Battery','Wind','PV','Total'};

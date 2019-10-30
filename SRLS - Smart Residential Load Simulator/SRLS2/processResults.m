@@ -1,4 +1,4 @@
-function result = processResults()
+function result = processResults(index)
 
 load SOC.mat;
 load Cost_KW_BT2.mat;
@@ -291,6 +291,10 @@ end
     result.mid = Ele_mid;
     result.peak = Ele_peak;
 
-powerUsage();
+    if(exist('index','var') == 0)
+        index = -1;
+    end
+    
+    powerUsage(index);
 
 end
