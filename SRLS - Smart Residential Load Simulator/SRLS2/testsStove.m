@@ -1,0 +1,12 @@
+set_param('Energy_Cost/Range/OnOff_Range','Value',num2str(1)); 
+set_param('Energy_Cost/Range/B1','Value',num2str(.60));
+set_param('Energy_Cost/Range/B2','Value',num2str(.40));
+set_param('Energy_Cost/Range/B3','Value',num2str(.40));
+set_param('Energy_Cost/Range/B4','Value',num2str(.60));
+% set_param('Energy_Cost/Range/B5','Value',num2str(B5));
+set_param('Energy_Cost/Range/switchedOn_Mor1','Value',num2str(7));
+set_param('Energy_Cost/Range/switchedOn_Noon1','Value',num2str(8));
+set_param('Energy_Cost/Range/switchedOn_Nig1','Value',num2str(9));
+set_param('Energy_Cost/Range/TOU_Mor1','Value',num2str(1));
+set_param('Energy_Cost/Range/TOU_Noon1','Value',num2str(0));
+set_param('Energy_Cost/Range/TOU_Nig1','Value',num2str(0));

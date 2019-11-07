@@ -1,10 +1,12 @@
-function totalPowerSum = sumPower()
-    for index = 0:10
+function totalPowerSum = sumPower(plotTitle)
+    for index = 0:30
+        fileFolder = '.\Results\Group03\';
+        fileName = ['powerValues' num2str(index,'%d') '.mat'];        
+        filePath = [fileFolder fileName];
         
-        fileName = ['powerValues' num2str(index,'%d') '.mat'];
-        fileExist = exist(fileName,'file');
-        if(fileExist > 0)        
-            loadedValues = load(fileName);
+        fileExist = exist(filePath,'file');
+        if(fileExist > 0)
+            loadedValues = load(filePath);
            
             if(exist('totalPowerSum','var') == 0)
                 totalPowerSum = loadedValues.powerValues{13,2};
@@ -22,5 +24,10 @@ function totalPowerSum = sumPower()
            end
         end
     end
-    plotValue(totalPowerSum,time,'Time in (hrs)','House Comsumption Power Sum','Power (Watts)','Simulation Power Sum');
+    
+    if(exist('plotTitle','var') == 0)
+        plotTitle = 'House Consumption Power Sum';
+    end
+    
+    plotValue(totalPowerSum,time,'Time in (hrs)',plotTitle,'Power (Watts)','Simulation Power Sum');
 end

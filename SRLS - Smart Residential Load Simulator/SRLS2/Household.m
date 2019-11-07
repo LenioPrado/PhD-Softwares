@@ -1070,8 +1070,6 @@ Len_wall4 = str2double(get(handles.LR4,'String'));   Lwin4 = str2double(get(hand
 Width_wall4 = str2double(get(handles.LW4,'String')); Wwin4 = str2double(get(handles.Wwin4,'String'));
 Higth_wall4 = str2double(get(handles.LH4,'String'));
 
-
-
 NoRooms = get(handles.No_of_rooms,'Value');
 Hou = ones(NoRooms,3);            win = ones(NoRooms,1);
 Hou1 = zeros(4-NoRooms,3);        win1 = zeros(4-NoRooms,1);
@@ -1090,7 +1088,6 @@ Area_window  = [Lwin1*Wwin1*(get(handles.noyesWindows1,'Value')-1)
 
 a = (1)./((1./(2*Rw))+(1./Rc));
 b = (30-23)./a;
-
 
 for c = 1:4
     if c<=NoRooms
@@ -1142,6 +1139,25 @@ elseif NoRooms==4
     set_param('Energy_Cost/House/Room_4/Integrator1','InitialCondition',num2str(21));
 end
 
+inputs.NoRooms = NoRooms;
+inputs.Rw = Rw;
+inputs.Cw = Cw;
+inputs.Rc = Rc;
+inputs.Ci = Ci;
+inputs.b = b;
+for i=1:4
+    room = sprintf('Room_%d', i);
+    inputs.(room).WallLength = str2double(get(handles.(['LR' num2str(i)]),'String'));
+    inputs.(room).WallWidth = str2double(get(handles.(['LW' num2str(i)]),'String'));
+    inputs.(room).WallHeigth = str2double(get(handles.(['LH' num2str(i)]),'String'));
+    inputs.(room).WindowLength = str2double(get(handles.(['Lwin' num2str(i)]),'String'));
+    inputs.(room).WindowWidth = str2double(get(handles.(['Wwin' num2str(i)]),'String'));
+    inputs.(room).WindowNoYes = get(handles.(['noyesWindows' num2str(i)]),'Value');
+end
+
+results = getHouseholdResults();
+
+save('results.mat', 'inputs', 'results');
 
 save('Household')
 close('Household')
